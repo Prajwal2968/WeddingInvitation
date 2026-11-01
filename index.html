@@ -29,7 +29,7 @@
     <div class="welcome-shimmer"></div>
     <div class="welcome-particles" id="welcomeParticles"></div>
 
-    <!-- Tap anywhere on the cover -->
+    <!-- Tap anywhere to open -->
     <button
       class="open-invitation"
       id="openInvitation"
@@ -42,65 +42,24 @@
   <!-- MAIN WEDDING WEBSITE -->
   <main class="main-page" id="mainPage" aria-hidden="true">
 
-    <!-- SECOND PAGE: WEDDING LANDING PAGE -->
+    <!-- SECOND PAGE: IMAGE ONLY -->
     <section class="hero" id="home">
 
-      <div class="hero-background"></div>
-      <div class="hero-overlay"></div>
+      <img
+        src="assets/download.png"
+        class="hero-image"
+        alt="K. N. Sandeep and D. Shwetha wedding invitation"
+        fetchpriority="high"
+      >
+
       <div class="petal-container" id="petals"></div>
 
-      <div class="hero-content">
-
-        <!-- COUPLE NAMES -->
-        <div class="name-block">
-
-          <p class="hero-kicker">A CELEBRATION OF LOVE</p>
-
-          <h1 class="couple-names">
-            <span>K. N. Sandeep</span>
-            <i>&</i>
-            <span>D. Shwetha</span>
-          </h1>
-
-          <div class="name-divider">
-            <span></span>
-            <b>❀</b>
-            <span></span>
-          </div>
-
-          <div class="wedding-date">
-            <strong>13</strong>
-            <div>
-              <small>NOVEMBER</small>
-              <b>2026</b>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- BLESSING AND MANTRA -->
-        <div class="blessing-block">
-
-          <div class="om-symbol">ॐ</div>
-
-          <p class="mantra">
-            OM BASAVESHWARA SWAMY NAMAH
-          </p>
-
-        </div>
-
-        <!-- SCROLL INSTRUCTION -->
-        <a href="#story" class="scroll-button">
-
-          <span>SCROLL DOWN</span>
-
-          <small>TO DISCOVER OUR CELEBRATION</small>
-
-          <b>⌄</b>
-
-        </a>
-
-      </div>
+      <!-- Invisible clickable area over the arrow in the image -->
+      <a
+        href="#story"
+        class="scroll-hotspot"
+        aria-label="Scroll down to discover the wedding celebration"
+      ></a>
 
     </section>
 
