@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let invitationOpened = false;
 
-  // Lock scrolling while the opening cover is visible.
+  // Prevent scrolling behind the opening cover.
   document.body.classList.add("cover-open");
 
 
@@ -52,12 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // Petals on the opening invitation cover.
+  // Opening-cover petals.
   createPetals(welcomeParticles, 15, "cover-petal");
 
 
   // =====================================
-  // OPEN THE INVITATION
+  // OPEN INVITATION
   // =====================================
 
   openButton.addEventListener("click", () => {
@@ -76,20 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
       mainPage.classList.add("visible");
       mainPage.setAttribute("aria-hidden", "false");
 
-      // Enable normal page scrolling.
+      // Restore normal page scrolling.
       document.body.classList.remove("cover-open");
-      document.body.style.overflowY = "auto";
+      document.body.style.height = "auto";
+      document.body.style.overflow = "visible";
       document.documentElement.style.overflowY = "auto";
 
-      window.scrollTo({
-        top: 0,
-        behavior: "auto"
-      });
+      window.scrollTo(0, 0);
 
-      // Start petals on the second page.
-      createPetals(mainPetals, 18, "petal");
+      // Start landing-page petals.
+      createPetals(mainPetals, 16, "petal");
 
-      // Start scroll reveal animations.
+      // Start section animations.
       startScrollAnimations();
     }
 
@@ -103,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // =====================================
-  // SCROLL REVEAL ANIMATIONS
+  // SCROLL REVEAL
   // =====================================
 
   function startScrollAnimations() {
@@ -149,9 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     elements.forEach(element => {
-
-      element.classList.add("reveal");
-
       observer.observe(element);
     });
 
