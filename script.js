@@ -1,61 +1,129 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Respect the visitor's motion preference
+  const welcomeScreen = document.getElementById("welcomeScreen");
+  const openButton = document.getElementById("openInvitation");
+  const mainPage = document.getElementById("mainPage");
+
+  const welcomeParticles = document.getElementById("welcomeParticles");
+  const mainPetals = document.getElementById("petals");
+
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  let invitationOpened = false;
+
+  // Prevent scrolling behind the opening cover.
+  document.body.classList.add("cover-open");
+
 
   // =====================================
-  // FLOATING FLOWER PETALS
+  // CREATE FLOATING PETALS
   // =====================================
 
-  const petalContainer = document.getElementById("petals");
+  function createPetals(container, count, className) {
 
-  if (!reducedMotion && petalContainer) {
+    if (!container || reducedMotion) return;
 
-    const totalPetals = window.innerWidth < 600 ? 10 : 20;
-
-    for (let i = 0; i < totalPetals; i++) {
+    for (let i = 0; i < count; i++) {
 
       const petal = document.createElement("span");
 
-      petal.classList.add("petal");
+      petal.className = className;
 
       petal.style.left = Math.random() * 100 + "%";
 
       petal.style.animationDuration =
-        (14 + Math.random() * 16) + "s";
+        (12 + Math.random() * 14) + "s";
 
       petal.style.animationDelay =
-        (-Math.random() * 25) + "s";
+        (-Math.random() * 20) + "s";
+
+      const size = 6 + Math.random() * 8;
+
+      petal.style.width = size + "px";
+      petal.style.height = (size * 1.5) + "px";
 
       petal.style.opacity =
-        (0.25 + Math.random() * 0.35).toString();
+        (0.2 + Math.random() * 0.4).toString();
 
-      petal.style.scale =
-        (0.6 + Math.random() * 0.8).toString();
+      container.appendChild(petal);
+    }
+  }
 
-      petalContainer.appendChild(petal);
+
+  // Petals on the opening invitation cover.
+  createPetals(welcomeParticles, 15, "cover-petal");
+
+
+  // =====================================
+  // OPEN THE INVITATION
+  // =====================================
+
+  openButton.addEventListener("click", () => {
+
+    if (invitationOpened) return;
+
+    invitationOpened = true;
+    openButton.disabled = true;
+
+    welcomeScreen.classList.add("leaving");
+
+    function revealMainPage() {
+
+      welcomeScreen.style.display = "none";
+
+      mainPage.classList.add("visible");
+      mainPage.setAttribute("aria-hidden", "false");
+
+      document.body.classList.remove("cover-open");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
+
+      // Start petals on the wedding landing page.
+      createPetals(mainPetals, 18, "petal");
+
+      // Start scroll reveal animations.
+      startScrollAnimations();
     }
 
-  }
+    if (reducedMotion) {
+      revealMainPage();
+    } else {
+      window.setTimeout(revealMainPage, 1100);
+    }
+
+  });
 
 
   // =====================================
   // SCROLL REVEAL ANIMATIONS
   // =====================================
 
-  const revealElements = document.querySelectorAll(
-    ".main-photo, .story-text, .event, .venue-card, .gallery-grid img"
-  );
+  function startScrollAnimations() {
 
-  if ("IntersectionObserver" in window && !reducedMotion) {
+    const elements = document.querySelectorAll(
+      ".reveal, .gallery-grid img"
+    );
+
+    if (
+      !("IntersectionObserver" in window) ||
+      reducedMotion
+    ) {
+
+      elements.forEach(element => {
+        element.classList.add("visible");
+      });
+
+      return;
+    }
 
     const observer = new IntersectionObserver(
 
-      (entries, observer) => {
+      (entries, currentObserver) => {
 
         entries.forEach(entry => {
 
@@ -63,8 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             entry.target.classList.add("visible");
 
-            observer.unobserve(entry.target);
-
+            currentObserver.unobserve(entry.target);
           }
 
         });
@@ -72,25 +139,17 @@ document.addEventListener("DOMContentLoaded", () => {
       },
 
       {
-        threshold: 0.12
+        threshold: 0.12,
+        rootMargin: "0px 0px -25px 0px"
       }
 
     );
 
-    revealElements.forEach(element => {
+    elements.forEach(element => {
 
       element.classList.add("reveal");
 
       observer.observe(element);
-
-    });
-
-  } else {
-
-    revealElements.forEach(element => {
-
-      element.classList.add("visible");
-
     });
 
   }
