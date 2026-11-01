@@ -1,11 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
 
+document.addEventListener("DOMContentLoaded", () => {
   const welcomeScreen = document.getElementById("welcomeScreen");
   const openButton = document.getElementById("openInvitation");
   const mainPage = document.getElementById("mainPage");
 
   const welcomeParticles = document.getElementById("welcomeParticles");
   const mainPetals = document.getElementById("petals");
+  const celebrationPetals = document.getElementById("celebrationPetals");
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -13,55 +14,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let invitationOpened = false;
 
-  // Prevent scrolling behind the opening cover.
   document.body.classList.add("cover-open");
 
-
-  // =====================================
-  // CREATE FLOATING PETALS
-  // =====================================
-
+  // Create falling petals
   function createPetals(container, count, className) {
-
     if (!container || reducedMotion) return;
 
     for (let i = 0; i < count; i++) {
-
       const petal = document.createElement("span");
 
       petal.className = className;
-
       petal.style.left = Math.random() * 100 + "%";
 
       petal.style.animationDuration =
-        (12 + Math.random() * 14) + "s";
+        (13 + Math.random() * 15) + "s";
 
       petal.style.animationDelay =
-        (-Math.random() * 20) + "s";
+        (-Math.random() * 25) + "s";
 
-      const size = 6 + Math.random() * 8;
+      const size = 7 + Math.random() * 9;
 
       petal.style.width = size + "px";
       petal.style.height = (size * 1.5) + "px";
 
       petal.style.opacity =
-        (0.2 + Math.random() * 0.4).toString();
+        (0.25 + Math.random() * 0.45).toString();
 
       container.appendChild(petal);
     }
   }
 
-
-  // Opening-cover petals.
+  // Opening-cover petals
   createPetals(welcomeParticles, 15, "cover-petal");
 
-
-  // =====================================
-  // OPEN INVITATION
-  // =====================================
-
+  // Open invitation
   openButton.addEventListener("click", () => {
-
     if (invitationOpened) return;
 
     invitationOpened = true;
@@ -70,13 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
     welcomeScreen.classList.add("leaving");
 
     function revealMainPage() {
-
       welcomeScreen.remove();
 
       mainPage.classList.add("visible");
       mainPage.setAttribute("aria-hidden", "false");
 
-      // Restore normal page scrolling.
       document.body.classList.remove("cover-open");
       document.body.style.height = "auto";
       document.body.style.overflow = "visible";
@@ -84,10 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       window.scrollTo(0, 0);
 
-      // Start landing-page petals.
+      // Petals on the second-page image
       createPetals(mainPetals, 16, "petal");
 
-      // Start section animations.
+      // Petals continue throughout the rest of the website
+      createPetals(celebrationPetals, 32, "petal");
+
       startScrollAnimations();
     }
 
@@ -96,16 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       window.setTimeout(revealMainPage, 1000);
     }
-
   });
 
-
-  // =====================================
-  // SCROLL REVEAL
-  // =====================================
-
+  // Reveal sections as the visitor scrolls
   function startScrollAnimations() {
-
     const elements = document.querySelectorAll(
       ".reveal, .gallery-grid img"
     );
@@ -114,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       !("IntersectionObserver" in window) ||
       reducedMotion
     ) {
-
       elements.forEach(element => {
         element.classList.add("visible");
       });
@@ -123,33 +103,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const observer = new IntersectionObserver(
-
       (entries, currentObserver) => {
-
         entries.forEach(entry => {
-
           if (entry.isIntersecting) {
-
             entry.target.classList.add("visible");
-
             currentObserver.unobserve(entry.target);
           }
-
         });
-
       },
-
       {
         threshold: 0.12,
         rootMargin: "0px 0px -25px 0px"
       }
-
     );
 
     elements.forEach(element => {
       observer.observe(element);
     });
-
   }
-
 });
