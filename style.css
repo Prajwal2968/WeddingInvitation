@@ -11,17 +11,23 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 20px;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
+  min-height: 100%;
+  width: 100%;
   font-family: 'Poppins', sans-serif;
   background: #fff8e9;
   color: #68283a;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body.cover-open {
   overflow: hidden;
+  height: 100vh;
 }
 
 :root {
@@ -34,7 +40,7 @@ body.cover-open {
 
 
 /* =========================================
-   FIRST PAGE - COMPLETE INVITATION IMAGE
+   FIRST PAGE - INVITATION COVER
 ========================================= */
 
 .welcome-screen {
@@ -60,7 +66,7 @@ body.cover-open {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   animation: coverZoom 18s ease-in-out infinite alternate;
 }
@@ -68,6 +74,7 @@ body.cover-open {
 .welcome-shimmer {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   background: linear-gradient(
     110deg,
@@ -77,6 +84,10 @@ body.cover-open {
   );
   transform: translateX(-100%);
   animation: shimmer 8s ease-in-out infinite;
+}
+
+.welcome-particles {
+  z-index: 3;
 }
 
 .open-invitation {
@@ -110,10 +121,12 @@ body.cover-open {
 .main-page {
   display: none;
   opacity: 0;
+  width: 100%;
 }
 
 .main-page.visible {
   display: block;
+  opacity: 1;
   animation: pageReveal 1.3s ease forwards;
 }
 
@@ -140,7 +153,7 @@ body.cover-open {
   position: absolute;
   z-index: -3;
   inset: 0;
-  background-image: url("assets/download.png");
+  background-image: url("assets/download.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
@@ -153,7 +166,7 @@ body.cover-open {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(255, 250, 235, 0.10),
+    rgba(255, 250, 235, 0.08),
     rgba(255, 250, 235, 0.02)
   );
   pointer-events: none;
@@ -389,7 +402,6 @@ body.cover-open {
 
 /* =========================================
    STORY SECTION
-   Existing story styling preserved
 ========================================= */
 
 .story {
@@ -753,7 +765,6 @@ body.cover-open {
   from {
     transform: scale(1);
   }
-
   to {
     transform: scale(1.045);
   }
@@ -763,7 +774,6 @@ body.cover-open {
   0%, 60% {
     transform: translateX(-110%);
   }
-
   100% {
     transform: translateX(110%);
   }
@@ -774,7 +784,6 @@ body.cover-open {
     opacity: 0;
     transform: translateY(25px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -786,7 +795,6 @@ body.cover-open {
     opacity: 0;
     transform: translateY(25px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -798,7 +806,6 @@ body.cover-open {
     opacity: 0;
     transform: translateY(-18px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -810,7 +817,6 @@ body.cover-open {
     opacity: 0;
     transform: translateY(15px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -821,7 +827,6 @@ body.cover-open {
   from {
     transform: scale(1);
   }
-
   to {
     transform: scale(1.035);
   }
@@ -831,7 +836,6 @@ body.cover-open {
   0%, 100% {
     text-shadow: 0 0 8px rgba(189, 132, 41, 0.15);
   }
-
   50% {
     text-shadow: 0 0 22px rgba(189, 132, 41, 0.5);
   }
@@ -841,7 +845,6 @@ body.cover-open {
   0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(8px);
   }
@@ -851,11 +854,9 @@ body.cover-open {
   0% {
     transform: translate3d(0, -5vh, 0) rotate(0deg);
   }
-
   50% {
     transform: translate3d(25px, 50vh, 0) rotate(180deg);
   }
-
   100% {
     transform: translate3d(-15px, 110vh, 0) rotate(360deg);
   }
@@ -869,7 +870,7 @@ body.cover-open {
 @media (max-width: 600px) {
 
   .welcome-art {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
   }
 
