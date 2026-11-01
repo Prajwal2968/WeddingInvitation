@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let invitationOpened = false;
 
-  // Prevent scrolling behind the opening cover.
+  // Lock scrolling while the opening cover is visible.
   document.body.classList.add("cover-open");
 
 
@@ -71,19 +71,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function revealMainPage() {
 
-      welcomeScreen.style.display = "none";
+      welcomeScreen.remove();
 
       mainPage.classList.add("visible");
       mainPage.setAttribute("aria-hidden", "false");
 
+      // Enable normal page scrolling.
       document.body.classList.remove("cover-open");
+      document.body.style.overflowY = "auto";
+      document.documentElement.style.overflowY = "auto";
 
       window.scrollTo({
         top: 0,
         behavior: "auto"
       });
 
-      // Start petals on the wedding landing page.
+      // Start petals on the second page.
       createPetals(mainPetals, 18, "petal");
 
       // Start scroll reveal animations.
@@ -93,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (reducedMotion) {
       revealMainPage();
     } else {
-      window.setTimeout(revealMainPage, 1100);
+      window.setTimeout(revealMainPage, 1000);
     }
 
   });
