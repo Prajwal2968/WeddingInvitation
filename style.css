@@ -1,5 +1,5 @@
 /* =========================================
-   GLOBAL STYLES
+   GLOBAL
 ========================================= */
 
 * {
@@ -9,9 +9,9 @@
 }
 
 html {
+  min-height: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 20px;
-  min-height: 100%;
   overflow-x: hidden;
 }
 
@@ -40,7 +40,7 @@ body.cover-open {
 
 
 /* =========================================
-   FIRST PAGE - INVITATION COVER
+   FIRST PAGE - OPENING INVITATION
 ========================================= */
 
 .welcome-screen {
@@ -55,10 +55,7 @@ body.cover-open {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition:
-    opacity 1s ease,
-    transform 1s ease,
-    filter 1s ease;
+  transition: opacity 1s ease, transform 1s ease, filter 1s ease;
 }
 
 .welcome-art {
@@ -84,10 +81,6 @@ body.cover-open {
   );
   transform: translateX(-100%);
   animation: shimmer 8s ease-in-out infinite;
-}
-
-.welcome-particles {
-  z-index: 3;
 }
 
 .open-invitation {
@@ -127,241 +120,62 @@ body.cover-open {
 .main-page.visible {
   display: block;
   opacity: 1;
-  animation: pageReveal 1.3s ease forwards;
+  animation: pageReveal 1s ease forwards;
 }
 
 
 /* =========================================
-   SECOND PAGE - HERO BACKGROUND
+   SECOND PAGE - IMAGE ONLY
 ========================================= */
 
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 15px;
+  background: #fff5df;
   isolation: isolate;
-  background: #fff7e6;
 }
 
-.hero-background {
+.hero-image {
   position: absolute;
-  z-index: -3;
   inset: 0;
-  background-image: url("assets/download.jpg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 100% 100%;
-  animation: backgroundDrift 24s ease-in-out infinite alternate;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
 }
 
-.hero-overlay {
+/* Invisible clickable region over the arrow in the artwork */
+.scroll-hotspot {
   position: absolute;
-  z-index: -2;
+  z-index: 5;
+  left: 15%;
+  top: 51%;
+  width: 70%;
+  height: 11%;
+  display: block;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scroll-hotspot:focus-visible {
+  outline: 2px dashed rgba(118, 40, 61, 0.6);
+  outline-offset: -5px;
+}
+
+.petal-container {
+  position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 250, 235, 0.08),
-    rgba(255, 250, 235, 0.02)
-  );
+  z-index: 2;
+  overflow: hidden;
   pointer-events: none;
-}
-
-
-/* =========================================
-   HERO CONTENT
-========================================= */
-
-.hero-content {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  max-width: 470px;
-  min-height: 100vh;
-  min-height: 100svh;
-  margin: 0 auto;
-  padding: clamp(18px, 4vh, 40px) 10px 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  animation: contentRise 1.5s ease both;
-}
-
-
-/* =========================================
-   COUPLE NAMES
-========================================= */
-
-.name-block {
-  width: 100%;
-  animation: namesReveal 1.8s ease both;
-}
-
-.hero-kicker {
-  color: #98652a;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  margin-bottom: 10px;
-}
-
-.couple-names {
-  font-family: 'Playfair Display', serif;
-  color: var(--maroon);
-  font-weight: 500;
-  font-size: clamp(34px, 9vw, 48px);
-  line-height: 1.12;
-  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.8);
-}
-
-.couple-names span {
-  display: block;
-}
-
-.couple-names i {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--gold);
-  font-size: 30px;
-  font-weight: 500;
-  margin: 2px 0;
-}
-
-.name-divider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 10px auto 8px;
-  color: var(--gold);
-}
-
-.name-divider span {
-  display: block;
-  width: 48px;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--gold)
-  );
-}
-
-.name-divider span:last-child {
-  transform: rotate(180deg);
-}
-
-.name-divider b {
-  font-size: 18px;
-  font-weight: 400;
-}
-
-
-/* =========================================
-   WEDDING DATE
-========================================= */
-
-.wedding-date {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 8px auto 0;
-  color: var(--maroon);
-}
-
-.wedding-date strong {
-  font-family: 'Playfair Display', serif;
-  font-size: 54px;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.wedding-date div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3px;
-}
-
-.wedding-date small {
-  font-family: 'Poppins', sans-serif;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-}
-
-.wedding-date b {
-  font-size: 15px;
-  letter-spacing: 3px;
-}
-
-
-/* =========================================
-   OM AND MANTRA
-========================================= */
-
-.blessing-block {
-  margin-top: clamp(15px, 3vh, 30px);
-  animation: blessingReveal 2s ease both;
-}
-
-.om-symbol {
-  font-family: 'Noto Serif Devanagari', serif;
-  font-size: 48px;
-  line-height: 1.2;
-  color: #922a40;
-  text-shadow: 0 0 15px rgba(189, 132, 41, 0.25);
-  animation: omGlow 3.5s ease-in-out infinite;
-}
-
-.mantra {
-  margin-top: 7px;
-  color: #76283d;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 2px;
-}
-
-
-/* =========================================
-   SCROLL INSTRUCTION
-========================================= */
-
-.scroll-button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  margin-top: clamp(17px, 3vh, 30px);
-  color: var(--maroon);
-  text-decoration: none;
-  animation: blessingReveal 2.3s ease both;
-}
-
-.scroll-button span {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 2px;
-}
-
-.scroll-button small {
-  font-size: 8px;
-  letter-spacing: 1.8px;
-}
-
-.scroll-button b {
-  font-family: Arial, sans-serif;
-  font-size: 35px;
-  font-weight: 300;
-  line-height: 1;
-  animation: arrowBounce 1.5s ease-in-out infinite;
 }
 
 
@@ -402,6 +216,7 @@ body.cover-open {
 
 /* =========================================
    STORY SECTION
+   Original story appearance preserved
 ========================================= */
 
 .story {
@@ -708,25 +523,13 @@ body.cover-open {
    FLOATING PETALS
 ========================================= */
 
-.petal-container,
-.welcome-particles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
 .petal,
 .cover-petal {
   position: absolute;
   top: -30px;
   display: block;
   border-radius: 100% 0 100% 0;
-  background: linear-gradient(
-    135deg,
-    #f3b2a9,
-    #df777e
-  );
+  background: linear-gradient(135deg, #f3b2a9, #df777e);
   animation: petalFall linear infinite;
 }
 
@@ -738,6 +541,14 @@ body.cover-open {
   opacity: 0.45;
 }
 
+.welcome-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
 
 /* =========================================
    SCROLL REVEAL
@@ -746,9 +557,7 @@ body.cover-open {
 .reveal {
   opacity: 0;
   transform: translateY(35px);
-  transition:
-    opacity 0.9s ease,
-    transform 0.9s ease;
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .reveal.visible {
@@ -782,71 +591,11 @@ body.cover-open {
 @keyframes pageReveal {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes contentRise {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes namesReveal {
-  from {
-    opacity: 0;
-    transform: translateY(-18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes blessingReveal {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes backgroundDrift {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.035);
-  }
-}
-
-@keyframes omGlow {
-  0%, 100% {
-    text-shadow: 0 0 8px rgba(189, 132, 41, 0.15);
-  }
-  50% {
-    text-shadow: 0 0 22px rgba(189, 132, 41, 0.5);
-  }
-}
-
-@keyframes arrowBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(8px);
   }
 }
 
@@ -864,7 +613,7 @@ body.cover-open {
 
 
 /* =========================================
-   MOBILE RESPONSIVE DESIGN
+   MOBILE
 ========================================= */
 
 @media (max-width: 600px) {
@@ -875,91 +624,20 @@ body.cover-open {
   }
 
   .hero {
-    min-height: 100vh;
-    min-height: 100svh;
-    padding: 0 10px;
+    height: 100vh;
+    height: 100svh;
+    min-height: 540px;
   }
 
-  .hero-background {
-    background-size: 100% 100%;
-    background-position: center center;
+  .hero-image {
+    object-fit: fill;
   }
 
-  .hero-content {
-    min-height: 100vh;
-    min-height: 100svh;
-    padding:
-      max(18px, env(safe-area-inset-top))
-      8px
-      max(20px, env(safe-area-inset-bottom));
-  }
-
-  .hero-kicker {
-    font-size: 8px;
-    letter-spacing: 2px;
-    margin-bottom: 7px;
-  }
-
-  .couple-names {
-    font-size: clamp(32px, 8.5vw, 43px);
-    line-height: 1.1;
-  }
-
-  .couple-names i {
-    font-size: 25px;
-    margin: 1px 0;
-  }
-
-  .name-divider {
-    margin: 7px auto 5px;
-  }
-
-  .wedding-date {
-    margin-top: 5px;
-  }
-
-  .wedding-date strong {
-    font-size: 48px;
-  }
-
-  .wedding-date small {
-    font-size: 9px;
-  }
-
-  .wedding-date b {
-    font-size: 13px;
-  }
-
-  .blessing-block {
-    margin-top: 13px;
-  }
-
-  .om-symbol {
-    font-size: 42px;
-  }
-
-  .mantra {
-    font-size: 8px;
-    letter-spacing: 1.5px;
-  }
-
-  .scroll-button {
-    margin-top: 16px;
-    gap: 5px;
-  }
-
-  .scroll-button span {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-  }
-
-  .scroll-button small {
-    font-size: 7px;
-    letter-spacing: 1.2px;
-  }
-
-  .scroll-button b {
-    font-size: 31px;
+  .scroll-hotspot {
+    top: 51%;
+    left: 12%;
+    width: 76%;
+    height: 12%;
   }
 
   .section-padding {
@@ -997,35 +675,6 @@ body.cover-open {
 
 
 /* =========================================
-   SHORT MOBILE SCREENS
-========================================= */
-
-@media (max-width: 600px) and (max-height: 700px) {
-
-  .hero-content {
-    padding-top: 10px;
-    padding-bottom: 12px;
-  }
-
-  .couple-names {
-    font-size: clamp(29px, 7.5vw, 36px);
-  }
-
-  .blessing-block {
-    margin-top: 8px;
-  }
-
-  .om-symbol {
-    font-size: 36px;
-  }
-
-  .scroll-button {
-    margin-top: 10px;
-  }
-}
-
-
-/* =========================================
    DESKTOP
 ========================================= */
 
@@ -1035,12 +684,16 @@ body.cover-open {
     object-fit: contain;
   }
 
-  .hero-background {
-    background-size: auto 100%;
+  .hero-image {
+    object-fit: contain;
+    background: #fff5df;
   }
 
-  .hero-content {
-    max-width: 500px;
+  .scroll-hotspot {
+    top: 51%;
+    left: 25%;
+    width: 50%;
+    height: 12%;
   }
 }
 
